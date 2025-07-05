@@ -1,0 +1,12 @@
+<h2>Fazer login</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {# Isso renderiza os campos 'username' e 'password' #}
+    {{ form.as_p }} 
+    <button type="submit">Entrar</button>
+</form>
+
+{# As linhas abaixo foram removidas para este teste: #}
+{# <p>Ainda não tem uma conta? <a href="{% url 'register' %}">Registre-se aqui</a>.</p> #}
+{# <p><a href="{% url 'password_reset' %}">Esqueceu sua senha?</a></p> #}
