@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Escolher Avatar Disney</h1>
+
+<div style="margin: 20px 0; text-align: center;">
+    <form method="get" style="display: inline-block;">
+        <input type="text" name="search" value="{{ search_query }}" 
+               placeholder="Buscar personagem Disney..." 
+               style="padding: 10px; width: 300px; border: 1px solid #ddd; border-radius: 4px; margin-right: 10px;">
+        <button type="submit" style="padding: 10px 20px; background: #007cba; color: white; border: none; border-radius: 4px; cursor: pointer;">
+            🔍 Buscar
+        </button>
+        {% if search_query %}
+            <a href="{% url 'escolher_avatar' %}" style="padding: 10px 20px; background: #6c757d; color: white; text-decoration: none; border-radius: 4px; margin-left: 10px;">
+                ✖ Limpar
+            </a>
+        {% endif %}
+    </form>
+</div>
+
+{% if search_query %}
+    <p style="text-align: center; color: #666;">
+        <strong>Resultados para:</strong> "{{ search_query }}" 
+        {% if disney_data.data %}
+            ({{ disney_data.data|length }} encontrado{{ disney_data.data|length|pluralize:"s" }})
+        {% endif %}
+    </p>
+{% else %}
+    <p style="text-align: center;">Escolha seu personagem Disney favorito como avatar:</p>
+{% endif %}
+
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 20px; margin: 20px 0;">
+    {% if disney_data.data %}
+        {% for character in disney_data.data %}
+            <div style="text-align: center; border: 1px solid #ddd; padding: 10px; border-radius: 8px;">
+                <img src="{{ character.imageUrl }}" alt="{{ character.name }}" 
+                     style="width: 100px; height: 100px; object-fit: cover; border-radius: 50%; margin-bottom: 10px;">
+                <p style="font-size: 12px; margin: 5px 0;"><strong>{{ character.name }}</strong></p>
+                
+                <form method="post" style="margin: 0;">
+                    {% csrf_token %}
+                    <input type="hidden" name="avatar_url" value="{{ character.imageUrl }}">
+                    <input type="hidden" name="avatar_name" value="{{ character.name }}">
+                    <button type="submit" style="padding: 5px 10px; font-size: 12px; background: #007cba; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                        Escolher
+                    </button>
+                </form>
+            </div>
+        {% endfor %}
+    {% else %}
+        {% if search_query %}
+            <div style="grid-column: 1 / -1; text-align: center; padding: 40px;">
+                <p style="color: #999; font-size: 18px;">😔 Nenhum personagem encontrado para "{{ search_query }}"</p>
+                <p><a href="{% url 'escolher_avatar' %}" style="color: #007cba; text-decoration: none;">Voltar para todos os personagens</a></p>
+            </div>
+        {% else %}
+            <p style="grid-column: 1 / -1; text-align: center;">Erro ao carregar personagens Disney. Tente novamente.</p>
+        {% endif %}
+    {% endif %}
+</div>
+
+{% if not search_query and disney_data.info %}
+    <div style="text-align: center; margin: 20px 0;">
+        {% if disney_data.info.previousPage %}
+            <a href="?page={{ current_page|add:'-1' }}" style="margin: 0 10px; padding: 8px 16px; background: #f0f0f0; text-decoration: none; border-radius: 4px;">← Anterior</a>
+        {% endif %}
+        
+        <span style="margin: 0 10px;">Página {{ current_page }}</span>
+        
+        {% if disney_data.info.nextPage %}
+            <a href="?page={{ current_page|add:'1' }}" style="margin: 0 10px; padding: 8px 16px; background: #f0f0f0; text-decoration: none; border-radius: 4px;">Próxima →</a>
+        {% endif %}
+    </div>
+{% endif %}
+
+<hr>
+
+<div style="text-align: center; margin: 20px 0;">
+    <a href="{% url 'avatar_aleatorio' %}" style="padding: 10px 20px; background: #28a745; color: white; text-decoration: none; border-radius: 4px; margin: 0 10px;">
+        🎲 Avatar Aleatório
+    </a>
+    <a href="{% url 'perfil' %}" style="padding: 10px 20px; background: #6c757d; color: white; text-decoration: none; border-radius: 4px; margin: 0 10px;">
+        Voltar ao Perfil
+    </a>
+</div>
+
+{% endblock content %} 

@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Perfil do Usuário</h1>
+
+<div style="display: flex; align-items: center; margin-bottom: 20px;">
+    <div style="margin-right: 20px;">
+        {% if user.profile and user.profile.avatar_url %}
+            <img src="{{ user.profile.avatar_url }}" alt="{{ user.profile.avatar_name }}" 
+                 style="width: 120px; height: 120px; object-fit: cover; border-radius: 50%; border: 3px solid #007cba;">
+            <p style="text-align: center; margin: 10px 0; font-size: 14px;"><strong>{{ user.profile.avatar_name }}</strong></p>
+        {% else %}
+            <div style="width: 120px; height: 120px; background: #f0f0f0; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 3px solid #ddd;">
+                <span style="font-size: 48px; color: #999;">👤</span>
+            </div>
+            <p style="text-align: center; margin: 10px 0; font-size: 14px;">Sem avatar</p>
+        {% endif %}
+    </div>
+    
+    <div>
+        <h2>Informações Pessoais</h2>
+        <p><strong>Nome de usuário:</strong> {{ user.username }}</p>
+        
+        <form method="post" style="display: inline;">
+            {% csrf_token %}
+            <label for="email"><strong>Email:</strong></label>
+            <input type="email" name="email" id="email" value="{{ user.email }}" placeholder="Digite seu email">
+            <button type="submit">Atualizar Email</button>
+        </form>
+        
+        <p><strong>Data de cadastro:</strong> {{ user.date_joined|date:"d/m/Y H:i" }}</p>
+        <p><strong>Último login:</strong> {{ user.last_login|date:"d/m/Y H:i"|default:"Nunca" }}</p>
+    </div>
+</div>
+
+<div>
+    <h2>Avatar Disney</h2>
+    <p>
+        <a href="{% url 'escolher_avatar' %}" style="padding: 10px 20px; background: #007cba; color: white; text-decoration: none; border-radius: 4px; margin-right: 10px;">
+            🎨 Escolher Novo Avatar
+        </a>
+        <a href="{% url 'avatar_aleatorio' %}" style="padding: 10px 20px; background: #28a745; color: white; text-decoration: none; border-radius: 4px;">
+            🎲 Avatar Aleatório
+        </a>
+    </p>
+</div>
+
+<div>
+    <h2>Tipo de Usuário</h2>
+    {% if user.groups.all %}
+        {% for group in user.groups.all %}
+            {% if group.name == 'Administradores' %}
+                <p><strong>Administrador</strong> - Você tem acesso completo ao sistema</p>
+            {% elif group.name == 'Usuarios Gerais' %}
+                <p><strong>Usuário Geral</strong> - Você pode visualizar o catálogo de filmes</p>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <p>Nenhum grupo atribuído</p>
+    {% endif %}
+</div>
+
+<div>
+    <h2>Ações</h2>
+    <p><a href="{% url 'alterar_senha' %}">Alterar Senha</a></p>
+    <p><a href="{% url 'password_reset' %}">Redefinir Senha por Email</a></p>
+</div>
+
+<hr>
+
+<p><a href="{% url 'index' %}">Voltar ao Catálogo</a></p>
+
+{% endblock content %} 

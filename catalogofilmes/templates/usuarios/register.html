@@ -1,18 +1,46 @@
+{% extends "base.html" %}
+
 {% block content %}
 
-{% if form.errors%}
-   <p>Se login e senha estão incorretos. Por favor, tente novamente</p>
+<h1>Cadastro de Usuário</h1>
+
+{% if form.errors %}
+   <p style="color: red;">Por favor, corrija os erros abaixo:</p>
+   {{ form.errors }}
 {% endif %}
 
-    <form action="{% url 'register' %}" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
+<form action="{% url 'register' %}" method="post">
+    {% csrf_token %}
+    
+    <div>
+        <label for="{{ form.username.id_for_label }}">Nome de usuário:</label>
+        {{ form.username }}
+    </div>
+    
+    <div>
+        <label for="email">Email:</label>
+        <input type="email" name="email" id="email" placeholder="Digite seu email">
+    </div>
+    
+    <div>
+        <label for="{{ form.password1.id_for_label }}">Senha:</label>
+        {{ form.password1 }}
+    </div>
+    
+    <div>
+        <label for="{{ form.password2.id_for_label }}">Confirmar Senha:</label>
+        {{ form.password2 }}
+    </div>
 
-        <button name="submit">Cadastrar</button>
-        <input type="hidden" name="next" value="{% url 'index' %}">
+    <div>
+        <button type="submit">Cadastrar</button>
+    </div>
+    <input type="hidden" name="next" value="{% url 'index' %}">
+</form>
 
-    </form>
-   
-    <a href="{% url 'index' %}">Voltar ao catálogo</a>
+<hr>
 
-{% endblock content%}
+<p><a href="{% url 'login' %}">Já tem uma conta? Faça login</a></p>
+<p><a href="{% url 'index' %}">Voltar ao catálogo</a></p>
+
+{% endblock content %}

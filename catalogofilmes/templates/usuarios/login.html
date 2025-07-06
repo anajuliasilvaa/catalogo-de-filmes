@@ -1,3 +1,5 @@
+{% extends "base.html" %}
+
 {% block content %}
 
 {% if form.errors%}
@@ -13,5 +15,6 @@
 
     </form>
     <p><a href="{% url 'register' %}">Cadastre-se aqui</a></p>
+    <p><a href="{% url 'password_reset' %}">Esqueceu sua senha?</a></p>
 
 {% endblock content%}

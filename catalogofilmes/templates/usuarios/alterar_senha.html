@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Alterar Senha</h1>
+
+{% if form.errors %}
+    <div style="color: red;">
+        <p>Por favor, corrija os erros abaixo:</p>
+        {{ form.errors }}
+    </div>
+{% endif %}
+
+<form method="post">
+    {% csrf_token %}
+    
+    <div>
+        <label for="{{ form.old_password.id_for_label }}">Senha Atual:</label>
+        {{ form.old_password }}
+    </div>
+    
+    <div>
+        <label for="{{ form.new_password1.id_for_label }}">Nova Senha:</label>
+        {{ form.new_password1 }}
+    </div>
+    
+    <div>
+        <label for="{{ form.new_password2.id_for_label }}">Confirmar Nova Senha:</label>
+        {{ form.new_password2 }}
+    </div>
+    
+    <div>
+        <button type="submit">Alterar Senha</button>
+    </div>
+</form>
+
+<hr>
+
+<p><a href="{% url 'perfil' %}">Voltar ao Perfil</a></p>
+
+{% endblock content %} 

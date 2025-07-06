@@ -7,18 +7,32 @@
 <body>
 
     {% if user.is_authenticated %}
-        <p>Olá, {{ user.username }}
-        <!--{% if user.groups.all %}
-          {% for group in user.groups.all %}
-            {% if group.name == 'Administradores' %}
-              - <strong>Administrador</strong>
-            {% elif group.name == 'Usuarios Gerais' %}
-              - <strong>Usuário Geral</strong>
+        <div style="display: flex; align-items: center; padding: 10px 0;">
+            {% if user.profile and user.profile.avatar_url %}
+                <img src="{{ user.profile.avatar_url }}" alt="{{ user.profile.avatar_name }}" 
+                     style="width: 40px; height: 40px; object-fit: cover; border-radius: 50%; margin-right: 10px; border: 2px solid #007cba;">
+            {% else %}
+                <div style="width: 40px; height: 40px; background: #f0f0f0; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 10px; border: 2px solid #ddd;">
+                    <span style="font-size: 20px; color: #999;">👤</span>
+                </div>
             {% endif %}
-          {% endfor %}
-        {% endif %}-->
-        </p>
-        <a href="{% url 'logout' %}">Sair</a>
+            
+            <div>
+                <p style="margin: 0;">Olá, {{ user.username }}
+                <!--{% if user.groups.all %}
+                  {% for group in user.groups.all %}
+                    {% if group.name == 'Administradores' %}
+                      - <strong>Administrador</strong>
+                    {% elif group.name == 'Usuarios Gerais' %}
+                      - <strong>Usuário Geral</strong>
+                    {% endif %}
+                  {% endfor %}
+                {% endif %}-->
+                | <a href="{% url 'perfil' %}">Perfil</a>
+                </p>
+                <a href="{% url 'logout' %}">Sair</a>
+            </div>
+        </div>
     {% else %}
         <p><a href="{% url 'login' %}">Entrar</a></p>
         <p><a href="{% url 'register' %}">Cadastre-se</a></p>
