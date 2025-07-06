@@ -1,3 +1,4 @@
+{% extends "base.html" %}
 {% load static %}
 
 {% block content %}
@@ -17,8 +18,14 @@
 
   <hr>
   <p>
-    <a href="{% url 'editar_filme' filme.id %}">Editar</a> |
-    <a href="{% url 'delete' filme.id %}">Deletar</a> |
+    {% if user.is_authenticated and user.groups.all %}
+      {% for group in user.groups.all %}
+        {% if group.name == 'Administradores' %}
+          <a href="{% url 'editar_filme' filme.id %}">Editar</a> |
+          <a href="{% url 'delete' filme.id %}">Deletar</a> |
+        {% endif %}
+      {% endfor %}
+    {% endif %}
     <a href="{% url 'index' %}">Voltar ao catálogo</a>
   </p>
 {% endblock content %}

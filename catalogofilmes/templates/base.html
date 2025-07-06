@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Catálogo de Filmes</title>
+</head>
+<body>
+
+    {% if user.is_authenticated %}
+        <p>Olá, {{ user.username }}
+        <!--{% if user.groups.all %}
+          {% for group in user.groups.all %}
+            {% if group.name == 'Administradores' %}
+              - <strong>Administrador</strong>
+            {% elif group.name == 'Usuarios Gerais' %}
+              - <strong>Usuário Geral</strong>
+            {% endif %}
+          {% endfor %}
+        {% endif %}-->
+        </p>
+        <a href="{% url 'logout' %}">Sair</a>
+    {% else %}
+        <p><a href="{% url 'login' %}">Entrar</a></p>
+        <p><a href="{% url 'register' %}">Cadastre-se</a></p>
+    {% endif %}
+
+    <hr>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    {% block content %}
+    {% endblock %}
+
+</body>
+</html>

@@ -4,14 +4,15 @@
    <p>Se login e senha estão incorretos. Por favor, tente novamente</p>
 {% endif %}
 
-    <form action="{% url 'login' %}" method="post">
+    <form action="{% url 'register' %}" method="post">
         {% csrf_token %}
         {{ form.as_p }}
 
-        <button name="submit">Entrar</button>
+        <button name="submit">Cadastrar</button>
         <input type="hidden" name="next" value="{% url 'index' %}">
 
     </form>
-    <p><a href="{% url 'register' %}">Cadastre-se aqui</a></p>
+   
+    <a href="{% url 'index' %}">Voltar ao catálogo</a>
 
 {% endblock content%}

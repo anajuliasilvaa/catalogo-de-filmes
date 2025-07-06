@@ -1,11 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
 <h1>Catálogo de Filmes</h1>
 
-<p><a href="{% url 'addFilme' %}">Adicionar Filme</a></p>
+{% if user.is_authenticated and user.groups.all %}
+  {% for group in user.groups.all %}
+    {% if group.name == 'Administradores' %}
+      <p><a href="{% url 'addFilme' %}">Adicionar Filme</a></p>
+    {% endif %}
+  {% endfor %}
+{% endif %}
 
 <ul>
   {% for filme in filmes %}
     <li>
-      <strong>{{ filme.titulo }}</strong> - {{ filme.ano }}
+      <strong>{{ filme.titulo }}</strong> - {{ filme.ano_publicacao }}
       <div>
         {% if filme.poster %}
           <img src="{{ filme.poster.url }}" alt="Poster de {{ filme.titulo }}" width="200">
@@ -15,11 +24,20 @@
       </div>
       
       <br>
-      <a href="{% url 'detalhes_filme' filme.id %}">Detalhes</a> |
-      <a href="{% url 'editar_filme' filme.id %}">Editar</a> |
-      <a href="{% url 'delete' filme.id %}">Deletar</a>
+      <a href="{% url 'detalhes_filme' filme.id %}">Detalhes</a>
+      
+      {% if user.is_authenticated and user.groups.all %}
+        {% for group in user.groups.all %}
+          {% if group.name == 'Administradores' %}
+            | <a href="{% url 'editar_filme' filme.id %}">Editar</a>
+            | <a href="{% url 'delete' filme.id %}">Deletar</a>
+          {% endif %}
+        {% endfor %}
+      {% endif %}
     </li>
   {% empty %}
     <li>Nenhum filme cadastrado ainda.</li>
   {% endfor %}
 </ul>
+
+{% endblock content%}
