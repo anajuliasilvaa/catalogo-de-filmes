@@ -142,6 +142,8 @@ python manage.py runserver
 - Editar filmes existentes
 - Excluir filmes
 - Gerenciar usuários via Django Admin
+- usuario : adm
+- senha: Admin123#
 
 ### Configuração de Email
 Para ativar o envio de emails, configure as seguintes variáveis no `settings.py`:
