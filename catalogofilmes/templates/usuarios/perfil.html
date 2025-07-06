@@ -46,20 +46,6 @@
     </p>
 </div>
 
-<div>
-    <h2>Tipo de Usuário</h2>
-    {% if user.groups.all %}
-        {% for group in user.groups.all %}
-            {% if group.name == 'Administradores' %}
-                <p><strong>Administrador</strong> - Você tem acesso completo ao sistema</p>
-            {% elif group.name == 'Usuarios Gerais' %}
-                <p><strong>Usuário Geral</strong> - Você pode visualizar o catálogo de filmes</p>
-            {% endif %}
-        {% endfor %}
-    {% else %}
-        <p>Nenhum grupo atribuído</p>
-    {% endif %}
-</div>
 
 <div>
     <h2>Ações</h2>
