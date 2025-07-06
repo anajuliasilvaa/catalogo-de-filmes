@@ -1,0 +1,12 @@
+{% block content %}
+
+<h1>Edite seu filme</h1>
+<p><a href="{% url 'index' %}">Voltar ao Catálogo</a></p>
+
+<form action="{% url 'editar_filme' edit.id %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Salvar</button>
+</form>
+
+{% endblock content %}

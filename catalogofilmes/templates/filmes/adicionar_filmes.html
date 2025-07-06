@@ -1,0 +1,12 @@
+{%block content %}
+
+    <form action="{% url 'addFilme'%}" method ='post' enctype="multipart/form-data">
+        {% csrf_token%}
+        {{form.as_p}}
+        <button name="submit">Adicionar Filme</button>
+
+    </form>
+
+    <a href="{% url 'index' %}">Voltar ao catálogo</a>
+
+{%endblock content%}

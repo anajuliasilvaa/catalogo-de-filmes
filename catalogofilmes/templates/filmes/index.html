@@ -1,0 +1,25 @@
+<h1>Catálogo de Filmes</h1>
+
+<p><a href="{% url 'addFilme' %}">Adicionar Filme</a></p>
+
+<ul>
+  {% for filme in filmes %}
+    <li>
+      <strong>{{ filme.titulo }}</strong> - {{ filme.ano }}
+      <div>
+        {% if filme.poster %}
+          <img src="{{ filme.poster.url }}" alt="Poster de {{ filme.titulo }}" width="200">
+        {% else %}
+          <p><em>Sem imagem disponível.</em></p>
+        {% endif %}
+      </div>
+      
+      <br>
+      <a href="{% url 'detalhes_filme' filme.id %}">Detalhes</a> |
+      <a href="{% url 'editar_filme' filme.id %}">Editar</a> |
+      <a href="{% url 'delete' filme.id %}">Deletar</a>
+    </li>
+  {% empty %}
+    <li>Nenhum filme cadastrado ainda.</li>
+  {% endfor %}
+</ul>
