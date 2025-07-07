@@ -1,5 +1,6 @@
 from django.db import models
 from genero.models import Genero
+from diretores.models import Diretor
 from django.db.models import Avg
 
 class Filme(models.Model):
@@ -10,7 +11,8 @@ class Filme(models.Model):
     duracao = models.DurationField(help_text="Formato: hh:mm:ss")
     poster = models.ImageField(upload_to='posters/', null=True, blank=True)
     generos = models.ManyToManyField(Genero, related_name='filmes')
-
+    diretor = models.ForeignKey(Diretor, on_delete=models.SET_NULL, null=True, blank=True)
+    
     def __str__(self):
         return self.titulo
 

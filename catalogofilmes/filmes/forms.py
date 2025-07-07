@@ -1,10 +1,11 @@
 from django import forms
 from .models import Filme
+from diretores.models import Diretor
 
 class FilmeForm(forms.ModelForm):
     class Meta:
         model = Filme
-        fields = ['titulo', 'sinopse', 'ano_publicacao', 'duracao', 'poster', 'generos']
+        fields = ['titulo', 'sinopse', 'ano_publicacao', 'duracao', 'poster', 'generos', 'diretor']
         labels = {
             'titulo': 'Título',
             'sinopse': 'Sinopse',

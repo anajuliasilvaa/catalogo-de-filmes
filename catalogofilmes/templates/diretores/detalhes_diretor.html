@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card mb-3">
+        <div class="row g-0">
+            <div class="col-md-4">
+                {% if diretor.foto %}
+                <img src="{{ diretor.foto.url }}" class="img-fluid rounded-start" alt="{{ diretor.nome }}">
+                {% else %}
+                <img src="https://via.placeholder.com/300x400?text=Sem+Foto" class="img-fluid rounded-start" alt="Sem Foto">
+                {% endif %}
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h1 class="card-title">{{ diretor.nome }}</h1>
+                    {% if diretor.data_nascimento %}
+                        <p class="card-text"><strong>Data de Nascimento:</strong> {{ diretor.data_nascimento|date:"d/m/Y" }}</p>
+                    {% endif %}
+                    {% if diretor.biografia %}
+                        <p class="card-text"><strong>Biografia:</strong> {{ diretor.biografia }}</p>
+                    {% endif %}
+
+                    <div class="mt-4">
+                        <a href="{% url 'diretores:lista_diretores' %}" class="btn btn-secondary">Voltar para a Lista</a>
+                        
+                        {# Exibe botões de edição/exclusão apenas para admins, verificando associação ao grupo #}
+                        {% if user.is_authenticated %}
+                            {% for group in user.groups.all %}
+                                {% if group.name == 'Administradores' %}
+                                    <a href="{% url 'diretores:editar_diretor' diretor.id %}" class="btn btn-warning">Editar Diretor</a>
+                                    <a href="{% url 'diretores:deletar_diretor' diretor.id %}" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja deletar este diretor?');">Deletar Diretor</a>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+
+                    <h3 class="mt-4">Filmes Dirigidos</h3>
+                    {% if diretor.filme_set.all %}
+                       <ul> 
+                            {% for filme in diretor.filme_set.all %}
+                                <li><a href="{% url 'detalhes_filme' filme.id %}">{{ filme.titulo }}</a></li>
+                            {% endfor %}
+                       </ul>
+                    {% else %}
+                        <p>Nenhum filme cadastrado para este diretor ainda.</p>
+                    {% endif %}
+                    {# {% endif %} #}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

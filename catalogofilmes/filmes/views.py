@@ -5,12 +5,20 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from usuarios.decorators import admin_required, user_required
 from genero.models import Genero
+from diretores.models import Diretor
 
 def index(request):
     """Página inicial acessível a todos os usuários"""
     generos = Genero.objects.prefetch_related('filmes').order_by('nome')
-    return render(request, 'filmes/index.html', {'generos': generos})
+    diretores_destaque = Diretor.objects.all().order_by('nome')[:5]
 
+    print("Diretores em destaque:", diretores_destaque)
+
+    context = {
+        'generos': generos,
+        'diretores_destaque': diretores_destaque
+    }
+    return render(request, 'filmes/index.html', context)
 
 @admin_required
 def adicionar_filme(request):

@@ -1,0 +1,35 @@
+{% extends 'base.html' %} {# Estende o seu template base para herdar a estrutura e o Bootstrap #}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Diretores</h2>
+    <a href="{% url 'diretores:adicionar_diretor' %}" class="btn btn-primary mb-3">Adicionar Novo Diretor</a>
+    <a href="{% url 'index' %}" class="btn btn-info mb-3 ms-2">Página Inicial</a>
+
+    {% if diretores %}
+    <div class="row">
+        {% for diretor in diretores %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                {% if diretor.foto %}
+                <img src="{{ diretor.foto.url }}" class="card-img-top" alt="{{ diretor.nome }}" style="height: 200px; object-fit: cover;">
+                {% else %}
+                <img src="https://via.placeholder.com/200x200?text=Sem+Foto" class="card-img-top" alt="Sem Foto" style="height: 200px; object-fit: cover;">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ diretor.nome }}</h5>
+                    <p class="card-text">
+                        {% if diretor.data_nascimento %}<small class="text-muted">Nasc.: {{ diretor.data_nascimento|date:"d/m/Y" }}</small><br>{% endif %}
+                        {{ diretor.biografia|truncatechars:100 }} {# Mostra um pedaço da biografia #}
+                    </p>
+                    <a href="{% url 'diretores:detalhar_diretor' diretor.id %}" class="btn btn-sm btn-info">Ver Detalhes</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p>Nenhum diretor cadastrado ainda.</p>
+    {% endif %}
+</div>
+{% endblock content %}

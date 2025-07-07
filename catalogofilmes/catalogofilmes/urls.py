@@ -26,8 +26,8 @@ urlpatterns = [
     path('', include('filmes.urls')),
     path('usuarios/', include('usuarios.urls')),
     path('generos/', include('genero.urls')),
-    path('avaliacoes/', include('avaliacoes.urls'))
-     
+    path('avaliacoes/', include('avaliacoes.urls')),
+    path('diretores/', include('diretores.urls')),
 ]
 
 if settings.DEBUG:
