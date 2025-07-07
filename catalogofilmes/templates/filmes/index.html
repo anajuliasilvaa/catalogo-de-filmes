@@ -6,38 +6,51 @@
 {% if user.is_authenticated and user.groups.all %}
   {% for group in user.groups.all %}
     {% if group.name == 'Administradores' %}
-      <p><a href="{% url 'addFilme' %}">Adicionar Filme</a></p>
+      <p>
+        <a href="{% url 'addFilme' %}">Adicionar Filme</a>
+        <a href="{% url 'criar_genero' %}">Adicionar Gênero</a>
+      </p>
     {% endif %}
   {% endfor %}
 {% endif %}
 
-<ul>
-  {% for filme in filmes %}
-    <li>
-      <strong>{{ filme.titulo }}</strong> - {{ filme.ano_publicacao }}
-      <div>
-        {% if filme.poster %}
-          <img src="{{ filme.poster.url }}" alt="Poster de {{ filme.titulo }}" width="200">
-        {% else %}
-          <p><em>Sem imagem disponível.</em></p>
+{% for genero in generos %}
+  <h2>{{ genero.nome }}</h2>
+  <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+    {% for filme in genero.filmes.all %}
+      <div style="border: 1px solid #ccc; padding: 10px; width: 220px; text-align: center;">
+        <strong>{{ filme.titulo }}</strong> <br>
+        <small>{{ filme.ano_publicacao }}</small>
+        <div style="margin: 10px 0;">
+          {% if filme.poster %}
+            <img src="{{ filme.poster.url }}" alt="Poster de {{ filme.titulo }}" width="200">
+          {% else %}
+            <p><em>Sem imagem disponível.</em></p>
+          {% endif %}
+        </div>
+
+        <div>
+          ⭐ {{ filme.media_avaliacoes|default:"Sem nota" }}
+        </div>
+
+        <a href="{% url 'detalhes_filme' filme.id %}">Detalhes</a>
+
+        {% if user.is_authenticated and user.groups.all %}
+          {% for group in user.groups.all %}
+            {% if group.name == 'Administradores' %}
+              <br>
+              <a href="{% url 'editar_filme' filme.id %}">Editar</a> |
+              <a href="{% url 'delete' filme.id %}">Deletar</a>
+            {% endif %}
+          {% endfor %}
         {% endif %}
       </div>
-      
-      <br>
-      <a href="{% url 'detalhes_filme' filme.id %}">Detalhes</a>
-      
-      {% if user.is_authenticated and user.groups.all %}
-        {% for group in user.groups.all %}
-          {% if group.name == 'Administradores' %}
-            | <a href="{% url 'editar_filme' filme.id %}">Editar</a>
-            | <a href="{% url 'delete' filme.id %}">Deletar</a>
-          {% endif %}
-        {% endfor %}
-      {% endif %}
-    </li>
-  {% empty %}
-    <li>Nenhum filme cadastrado ainda.</li>
-  {% endfor %}
-</ul>
+    {% empty %}
+      <p>Não há filmes cadastrados para este gênero.</p>
+    {% endfor %}
+  </div>
+{% empty %}
+  <p>Nenhum gênero cadastrado ainda.</p>
+{% endfor %}
 
-{% endblock content%}
+{% endblock content %}

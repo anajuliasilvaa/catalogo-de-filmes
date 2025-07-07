@@ -1,0 +1,17 @@
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404, redirect
+from .models import Avaliacao
+from django.contrib import messages
+
+@login_required
+def deletar_avaliacao(request, avaliacao_id):
+    avaliacao = get_object_or_404(Avaliacao, pk=avaliacao_id)
+
+    # ✅ Se o usuário é o autor OU está no grupo Administradores → pode deletar
+    if avaliacao.usuario == request.user or request.user.groups.filter(name='Administradores').exists():
+        avaliacao.delete()
+        messages.success(request, "Comentário deletado com sucesso.")
+    else:
+        messages.error(request, "Você não tem permissão para deletar este comentário.")
+
+    return redirect('detalhar_filme', id=avaliacao.filme.id)
