@@ -15,6 +15,37 @@
 
   <p><strong>Ano de Publicação:</strong> {{ filme.ano_publicacao }}</p>
   <p><strong>Duração:</strong> {{ filme.duracao }}</p>
+  <p><strong>Gêneros:</strong> 
+  {% if filme.generos.all %}
+    {% for genero in filme.generos.all %}
+      {{ genero.nome }}{% if not forloop.last %}, {% endif %}
+    {% endfor %}
+  {% else %}
+    Nenhum gênero cadastrado.
+  {% endif %}
+  </p>
+
+  <h3>Avaliações:</h3>
+    {% for avaliacao in filme.avaliacoes.all %}
+      <p><strong>{{ avaliacao.usuario.username }}</strong> - {{ avaliacao.nota }}⭐</p>
+      <p>{{ avaliacao.comentario }}</p>
+
+      {% if user.is_authenticated %}
+        {% if user == avaliacao.usuario or user_is_admin %}
+          <p>
+            <a href="{% url 'editar_avaliacao' avaliacao.id %}">Editar</a> |
+            <a href="{% url 'deletar_avaliacao' avaliacao.id %}">Excluir</a>
+          </p>
+        {% endif %}
+      {% endif %}
+      <hr>
+    {% empty %}
+      <p>Este filme ainda não tem avaliações.</p>
+    {% endfor %}
+
+    {% if user.is_authenticated %}
+      <p><a href="{% url 'adicionar_avaliacao' filme.id %}">Adicionar Avaliação</a></p>
+    {% endif %}
 
   <hr>
   <p>

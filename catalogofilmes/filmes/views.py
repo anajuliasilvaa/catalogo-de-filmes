@@ -4,12 +4,12 @@ from .forms import FilmeForm
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from usuarios.decorators import admin_required, user_required
-
+from genero.models import Genero
 
 def index(request):
     """Página inicial acessível a todos os usuários"""
-    filme = Filme.objects.all() 
-    return render(request, 'filmes/index.html', {'filmes': filme})
+    generos = Genero.objects.prefetch_related('filmes').order_by('nome')
+    return render(request, 'filmes/index.html', {'generos': generos})
 
 
 @admin_required
@@ -19,7 +19,7 @@ def adicionar_filme(request):
         form = FilmeForm()
     
     else:
-        form = FilmeForm(request.POST, request.FILES) 
+        form = FilmeForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect(reverse('index'))
@@ -56,4 +56,11 @@ def deletar_filme(request, id):
 def detalhar_filme(request, id):
     """Detalhar filme - usuários gerais e administradores"""
     filme = get_object_or_404(Filme, pk=id)
-    return render(request, 'filmes/detalhes_filme.html', {'filme': filme})
+    user_is_admin = False
+    if request.user.is_authenticated:
+        user_is_admin = request.user.groups.filter(name='Administradores').exists()
+    context = {
+        'filme': filme,
+        'user_is_admin': user_is_admin,
+    }
+    return render(request, 'filmes/detalhes_filme.html', context)
