@@ -28,6 +28,7 @@ urlpatterns = [
     path('generos/', include('genero.urls')),
     path('avaliacoes/', include('avaliacoes.urls')),
     path('diretores/', include('diretores.urls')),
+    path('favoritos/', include('favoritos.urls')),
 ]
 
 if settings.DEBUG:

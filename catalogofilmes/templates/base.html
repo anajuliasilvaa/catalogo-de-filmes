@@ -29,7 +29,9 @@
                   {% endfor %}
                 {% endif %}-->
                 | <a href="{% url 'perfil' %}">Perfil</a>
+                | <a href="{% url 'index' %}" style="margin-left: 10px;">Início</a> 
                 | <a href="{% url 'diretores:lista_diretores' %}" style="margin-left: 10px;">Diretores</a> 
+                | <a href="{% url 'favoritos:minhas_listas' %}" style="margin-left: 10px;">Minhas Listas</a>
                 </p>
                 <a href="{% url 'logout' %}">Sair</a>
             </div>

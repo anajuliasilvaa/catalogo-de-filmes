@@ -50,8 +50,15 @@
           <div style="border: 1px solid #ccc; padding: 10px; width: 220px; text-align: center;">
             <strong>{{ filme.titulo }}</strong> <br>
             <small>{{ filme.ano_publicacao }}</small>
-            {% if filme.diretor %} {# Exibe o diretor se o filme tiver um #}
-                <br><small>Dirigido por: <a href="{% url 'diretores:detalhar_diretor' filme.diretor.id %}">{{ filme.diretor.nome }}</a></small>
+            {% if filme.diretores.all %}
+                <p class="card-text"><small class="text-muted">
+                    Dirigido por: 
+                    {% for diretor in filme.diretores.all %}
+                        <a href="{% url 'diretores:detalhar_diretor' diretor.id %}">{{ diretor.nome }}</a>{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                </small></p>
+            {% else %}
+                <p class="card-text"><small class="text-muted">Diretor(es) não informado(s)</small></p>
             {% endif %}
             <div style="margin: 10px 0;">
               {% if filme.poster %}

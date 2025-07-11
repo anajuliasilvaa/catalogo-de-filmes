@@ -11,7 +11,7 @@ class Filme(models.Model):
     duracao = models.DurationField(help_text="Formato: hh:mm:ss")
     poster = models.ImageField(upload_to='posters/', null=True, blank=True)
     generos = models.ManyToManyField(Genero, related_name='filmes')
-    diretor = models.ForeignKey(Diretor, on_delete=models.SET_NULL, null=True, blank=True)
+    diretores = models.ManyToManyField(Diretor, blank=True)
     
     def __str__(self):
         return self.titulo

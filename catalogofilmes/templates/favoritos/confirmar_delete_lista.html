@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Confirmar Exclusão da Lista</h2>
+    <p>Tem certeza que deseja deletar a lista **"{{ lista.nome }}"**?</p>
+    
+    <form method="post" action="{% url 'favoritos:deletar_lista' lista.id %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Sim, Deletar</button>
+        <a href="{% url 'favoritos:detalhes_lista' lista.id %}" class="btn btn-secondary ms-2">Não, Cancelar</a>
+    </form>
+</div>
+{% endblock content %}
