@@ -16,4 +16,5 @@ class FilmeForm(forms.ModelForm):
             'ano_publicacao': forms.NumberInput(attrs={'class': 'form-control'}),
             'duracao': forms.NumberInput(attrs={'class': 'form-control'}),
             'diretores': forms.SelectMultiple(attrs={'class': 'form-control'}),
+             'generos': forms.CheckboxSelectMultiple(),  
         }
