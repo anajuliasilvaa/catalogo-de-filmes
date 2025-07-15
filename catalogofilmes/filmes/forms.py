@@ -5,15 +5,15 @@ from diretores.models import Diretor
 class FilmeForm(forms.ModelForm):
     class Meta:
         model = Filme
-        fields = ['titulo', 'sinopse', 'ano_publicacao', 'duracao', 'poster', 'generos', 'diretores']
-        labels = {
-            'titulo': 'Título',
-            'sinopse': 'Sinopse',
-            'ano_publicacao': 'Ano de Publicação',
-            'duracao': 'Duração',
-            'poster': 'Pôster',
-            'generos': 'Gêneros'
-        }
+        fields = '__all__'
         widgets = {
-            'generos': forms.CheckboxSelectMultiple(),  
+            'sinopse': forms.Textarea(attrs={
+                'class': 'form-control',
+                'rows': 5,
+                'placeholder': 'Digite a sinopse do filme...'
+            }),
+            'titulo': forms.TextInput(attrs={'class': 'form-control'}),
+            'ano_publicacao': forms.NumberInput(attrs={'class': 'form-control'}),
+            'duracao': forms.NumberInput(attrs={'class': 'form-control'}),
+            'diretores': forms.SelectMultiple(attrs={'class': 'form-control'}),
         }
