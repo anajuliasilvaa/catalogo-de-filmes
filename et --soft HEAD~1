@@ -1,0 +1,22 @@
+[33m0303b42[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m teste
+[33m1dd7c59[m CRUD completo de Diretores e integrações com Filmes
+[33m365f20a[m testes comentário
+[33m03fb2fb[m teste comentários
+[33mc1c4233[m modificações
+[33m3230fd2[m faltava a virgula no "avaliacoes" no INSTALLED_APPS
+[33m7ffa1ac[m ajustes
+[33m571b348[m Merge branch 'novos-recursos'
+[33m3bccb9c[m[33m ([m[1;31morigin/novos-recursos[m[33m, [m[1;32mnovos-recursos[m[33m)[m ajuste
+[33mf843898[m Criação dos cruds de gênero e avaliações dos filmes
+[33m68d55bd[m Merge branch 'main' of https://github.com/anajuliasilvaa/catalogo-de-filmes into main
+[33mc0a40b8[m Arquivo para ignorar outro arquivos
+[33m96d83b5[m commit
+[33m39fe2ac[m[33m ([m[1;32mminha-versao-analu[m[33m)[m alteração no README
+[33m90402c0[m .
+[33m36cc283[m ajuste na tela de perfil
+[33m5b423f5[m readme
+[33m1cfa882[m Adiciona funcionalidades de gerenciamento de perfil de usuário, incluindo alteração de senha e escolha de avatar. Implementa sistema de redefinição de senha por email e atualiza templates para melhorar a experiência do usuário.
+[33mbe093e8[m Atualiza a estrutura de URLs para incluir o módulo de usuários, implementa controle de acesso para operações de filmes e melhora a interface de login e registro.
+[33mffee06c[m CRUD de filmes realizado
+[33m8056344[m iniciação do projeto
+[33meb5012a[m Initial commit
