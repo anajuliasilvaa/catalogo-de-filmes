@@ -198,15 +198,6 @@ python manage.py shell
 >>> Profile.objects.all()
 ```
 
-### Limpeza de Dados
-```bash
-# Limpar cache
-python manage.py collectstatic
-
-# Limpar sessões expiradas
-python manage.py clearsessions
-```
-
 ## 📊 Modelos de Dados
 
 ### Filme
@@ -242,35 +233,9 @@ class Profile(models.Model):
 - **Bootstrap integration**: Componentes estilizados
 - **Mobile-first**: Otimizado para dispositivos móveis
 
-## 🤝 Contribuição
-
-1. Faça fork do projeto
-2. Crie sua branch de feature (`git checkout -b feature/nova-funcionalidade`)
-3. Commit suas mudanças (`git commit -am 'Adiciona nova funcionalidade'`)
-4. Push para a branch (`git push origin feature/nova-funcionalidade`)
-5. Abra um Pull Request
-
 ## 📝 Licença
 
 Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
-
-## 🎯 Próximas Funcionalidades
-
-- [ ] Sistema de avaliações e comentários
-- [ ] Filtros avançados de busca
-- [ ] Wishlist de filmes
-- [ ] Notificações por email
-- [ ] API REST para mobile
-- [ ] Integração com outras APIs de filmes
-
-## 🆘 Suporte
-
-Se você encontrar algum problema ou tiver dúvidas:
-
-1. Verifique a documentação
-2. Procure por issues semelhantes
-3. Abra uma nova issue com detalhes do problema
-4. Inclua logs de erro e passos para reproduzir
 
 ---
 
