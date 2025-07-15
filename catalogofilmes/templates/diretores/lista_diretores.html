@@ -17,6 +17,7 @@
     <!-- Hero Section End -->
 
     <!-- Admin Controls -->
+    {% if user.is_staff %}
     <div class="container mt-4">
         <div class="admin-controls text-center wow fadeIn" data-wow-delay="0.1s">
             <h6 class="section-title mb-3">Gerenciar Diretores</h6>
@@ -28,6 +29,7 @@
             </a>
         </div>
     </div>
+    {% endif %}
 
     <!-- Stats Section Start -->
     <div class="container-fluid stats-section p-5 my-5">
@@ -128,9 +130,11 @@
                     <i class="bi bi-person-x text-muted mb-3" style="font-size: 4rem;"></i>
                     <h3 class="text-muted mb-3">Nenhum diretor cadastrado</h3>
                     <p class="text-muted mb-4">Comece adicionando diretores ao catálogo</p>
+                    {% if user.is_staff %}
                     <a href="{% url 'diretores:adicionar_diretor' %}" class="btn btn-primary">
                         <i class="bi bi-person-plus me-2"></i>Adicionar Primeiro Diretor
                     </a>
+                    {% endif %}
                 </div>
             </div>
         {% endif %}
