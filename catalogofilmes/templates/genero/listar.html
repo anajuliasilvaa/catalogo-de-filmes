@@ -17,18 +17,22 @@
     <!-- Hero Section End -->
 
     <!-- Admin Controls -->
-    {% if user.is_staff %}
-    <div class="container mt-4">
-        <div class="admin-controls text-center wow fadeIn" data-wow-delay="0.1s">
-            <h6 class="section-title mb-3">Gerenciar Gêneros</h6>
-            <a href="{% url 'criar_genero' %}" class="btn btn-success btn-sm">
-                <i class="bi bi-plus-circle me-1"></i>Novo Gênero
-            </a>
-            <a href="{% url 'index' %}" class="btn btn-outline-secondary btn-sm">
-                <i class="bi bi-arrow-left me-1"></i>Voltar ao Catálogo
-            </a>
-        </div>
-    </div>
+    {% if user.groups.all %}
+        {% for group in user.groups.all %}
+            {% if group.name == 'Administradores' %}
+                <div class="container mt-4">
+                    <div class="admin-controls text-center wow fadeIn" data-wow-delay="0.1s">
+                        <h6 class="section-title mb-3">Gerenciar Gêneros</h6>
+                        <a href="{% url 'criar_genero' %}" class="btn btn-success btn-sm">
+                            <i class="bi bi-plus-circle me-1"></i>Novo Gênero
+                        </a>
+                        <a href="{% url 'index' %}" class="btn btn-outline-secondary btn-sm">
+                            <i class="bi bi-arrow-left me-1"></i>Voltar ao Catálogo
+                        </a>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
     {% endif %}
 
     <!-- Stats Section Start -->
@@ -174,15 +178,19 @@
                                     <span class="badge bg-primary">{{ genero.filmes.count }} filme{{ genero.filmes.count|pluralize:"s" }}</span>
                                 </div>
                             </div>
-                            {% if user.is_staff %}
-                            <div class="genre-actions">
-                                <a href="{% url 'editar_genero' genero.pk %}" class="btn btn-outline-primary btn-sm">
-                                    <i class="bi bi-pencil me-1"></i>Editar
-                                </a>
-                                <a href="{% url 'deletar_genero' genero.pk %}" class="btn btn-outline-danger btn-sm">
-                                    <i class="bi bi-trash me-1"></i>Excluir
-                                </a>
-                            </div>
+                            {% if user.groups.all %}
+                                {% for group in user.groups.all %}
+                                    {% if group.name == 'Administradores' %}
+                                        <div class="genre-actions">
+                                            <a href="{% url 'editar_genero' genero.pk %}" class="btn btn-outline-primary btn-sm">
+                                                <i class="bi bi-pencil me-1"></i>Editar
+                                            </a>
+                                            <a href="{% url 'deletar_genero' genero.pk %}" class="btn btn-outline-danger btn-sm">
+                                                <i class="bi bi-trash me-1"></i>Excluir
+                                            </a>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
                             {% endif %}
                         </div>
                     </div>
@@ -193,10 +201,14 @@
                 <i class="bi bi-collection text-muted mb-3" style="font-size: 4rem;"></i>
                 <h3 class="text-muted">Nenhum gênero cadastrado</h3>
                 <p class="text-muted mb-4">Comece criando seu primeiro gênero cinematográfico.</p>
-                {% if user.is_staff %}
-                <a href="{% url 'criar_genero' %}" class="btn btn-primary">
-                    <i class="bi bi-plus-circle me-2"></i>Criar Primeiro Gênero
-                </a>
+                {% if user.groups.all %}
+                    {% for group in user.groups.all %}
+                        {% if group.name == 'Administradores' %}
+                            <a href="{% url 'criar_genero' %}" class="btn btn-primary">
+                                <i class="bi bi-plus-circle me-2"></i>Criar Primeiro Gênero
+                            </a>
+                        {% endif %}
+                    {% endfor %}
                 {% endif %}
             </div>
         {% endif %}

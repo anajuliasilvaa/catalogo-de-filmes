@@ -150,3 +150,8 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'anajudasilvaalmeida@gmail.com'
 EMAIL_HOST_PASSWORD = 'szfj grsr jtuj zncm'
 DEFAULT_FROM_EMAIL = 'anajudasilvaalmeida@gmail.com'
+
+
+
+
+# ALLOWED_HOSTS = ['*']

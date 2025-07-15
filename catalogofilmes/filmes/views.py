@@ -14,23 +14,20 @@ def index(request):
     diretores_destaque = Diretor.objects.all().order_by('nome')[:5]
 
     if request.user.is_authenticated:
-        lista_favoritos, created = ListaFavoritos.objects.get_or_create(usuario=request.user)
-        filmes_favoritos = lista_favoritos.filmes.all()
+        listas_usuario = ListaFavoritos.objects.filter(usuario=request.user)
+        filmes_favoritos_ids = set()
+        for lista in listas_usuario:
+            filmes_favoritos_ids.update(lista.filmes.values_list('id', flat=True))
+        
+        from filmes.models import Filme
+        filmes_favoritos = Filme.objects.filter(id__in=filmes_favoritos_ids)
     else:
         filmes_favoritos = []
 
     context = {
         'generos': generos,
         'diretores_destaque': diretores_destaque,
-        'filmes_favoritos': filmes_favoritos  # 👈 adiciona no contexto
-    }
-    return render(request, 'filmes/index.html', context)
-
-    print("Diretores em destaque:", diretores_destaque)
-
-    context = {
-        'generos': generos,
-        'diretores_destaque': diretores_destaque
+        'filmes_favoritos': filmes_favoritos
     }
     return render(request, 'filmes/index.html', context)
 

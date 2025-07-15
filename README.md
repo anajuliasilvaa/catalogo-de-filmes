@@ -32,6 +32,26 @@ Um sistema completo de catálogo de filmes desenvolvido em Django com sistema de
 - **Avatar aleatório**: Botão para gerar novo avatar instantaneamente
 - **Integração com API Disney**: Utiliza a API oficial da Disney para buscar personagens
 
+### Sistema de Genero 
+- **Visualização de Gêneros**: Lista completa com todos os gêneros cadastrados
+- **Gerenciamento CRUD**: Adicionar, editar e excluir gênero (apenas administradores)
+
+### Sistemas de Diretores
+- **Visualização de Diretores**: Lista completa com todos os diretores cadastrados
+- **Detalhes dos diretores**: Página individual com todas as informações
+- **Gerenciamento CRUD**: Adicionar, editar e excluir filmes (apenas administradores)
+- **Upload de imagens**: Sistema de upload de imagens dos diretores
+
+### Sistemas de Favoritos
+- **Visualização de favoritos**: Lista completa com todos os filmes que foram favoritados em uma lista
+- **Gerenciamento CRUD**: Adicionar, editar e excluir filmes (apenas administradores e também para usuários gerais)
+
+### Sistemas de Avaliação
+- **Visualização de Diretores**: Lista completa com todos os diretores cadastrados
+- **Detalhes dos diretores**: Página individual com todas as informações
+- **Gerenciamento CRUD**: Adicionar, editar e excluir filmes (apenas administradores)
+- **Upload de imagens**: Sistema de upload de imagens dos diretores
+
 ## 🛠️ Tecnologias Utilizadas
 
 - **Python 3.12**
