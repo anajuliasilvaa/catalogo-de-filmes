@@ -10,7 +10,6 @@ Um sistema completo de catálogo de filmes desenvolvido em Django com sistema de
 - **Gerenciamento CRUD**: Adicionar, editar e excluir filmes (apenas administradores)
 - **Upload de pôsters**: Sistema robusto de upload com validação de formatos
 - **Relacionamentos**: Integração com diretores e gêneros múltiplos
-- **Busca avançada**: Pesquisa por título, diretor, gênero ou ano
 - **Validação de dados**: Campos obrigatórios e validação de formatos
 - **Imagens responsivas**: Pôsters otimizados para diferentes tamanhos de tela
 
