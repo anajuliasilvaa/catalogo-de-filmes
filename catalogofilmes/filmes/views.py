@@ -6,11 +6,25 @@ from django.urls import reverse
 from usuarios.decorators import admin_required, user_required
 from genero.models import Genero
 from diretores.models import Diretor
+from favoritos.models import ListaFavoritos
 
 def index(request):
     """Página inicial acessível a todos os usuários"""
     generos = Genero.objects.prefetch_related('filmes').order_by('nome')
     diretores_destaque = Diretor.objects.all().order_by('nome')[:5]
+
+    if request.user.is_authenticated:
+        lista_favoritos, created = ListaFavoritos.objects.get_or_create(usuario=request.user)
+        filmes_favoritos = lista_favoritos.filmes.all()
+    else:
+        filmes_favoritos = []
+
+    context = {
+        'generos': generos,
+        'diretores_destaque': diretores_destaque,
+        'filmes_favoritos': filmes_favoritos  # 👈 adiciona no contexto
+    }
+    return render(request, 'filmes/index.html', context)
 
     print("Diretores em destaque:", diretores_destaque)
 
@@ -19,6 +33,7 @@ def index(request):
         'diretores_destaque': diretores_destaque
     }
     return render(request, 'filmes/index.html', context)
+
 
 @admin_required
 def adicionar_filme(request):
@@ -72,3 +87,4 @@ def detalhar_filme(request, id):
         'user_is_admin': user_is_admin,
     }
     return render(request, 'filmes/detalhes_filme.html', context)
+

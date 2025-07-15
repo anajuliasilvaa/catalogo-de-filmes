@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from .models import ListaFavoritos
 from .forms import ListaFavoritosForm
 from filmes.models import Filme 
+from django.http import JsonResponse
 
 
 @login_required
