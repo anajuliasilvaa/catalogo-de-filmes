@@ -2,6 +2,8 @@
 
 Um sistema completo de catálogo de filmes desenvolvido em Django com sistema de usuários, permissões e avatares Disney.
 
+### link do vídeo que apresenta o fucionamento o sistema: https://youtu.be/c2nWRNvvUKE
+
 ## 📋 Funcionalidades
 
 ### 🎭 Sistema de Filmes
